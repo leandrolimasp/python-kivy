@@ -1,0 +1,120 @@
+#: import tela_eleva kivy.uix.screenmanager.RiseInTransition
+#: import tela_slide kivy.uix.screenmanager.SlideTransition
+#: import tela_cai kivy.uix.screenmanager.FallOutTransition
+
+<Menu>:
+    BoxLayout:
+        padding: 100,100,100,100
+        orientation: 'vertical'
+        Label:
+            text: 'Carrinho de Compras'
+            font_size: '80sp'
+        BoxLayout:
+            orientation: 'horizontal'
+            Button:
+                text: 'Carrinho'
+                background_color: 0,1,0,1
+                on_press:
+                    root.manager.transition = tela_eleva()
+                    root.manager.current = 'carrinho'
+            Button:
+                text: 'Consultar Preços'
+                background_color: 0.9,1,1,1
+                on_press:
+                    root.manager.transition = tela_slide()
+                    root.manager.current = 'consulta'
+                    root.manager.transition.direction = 'up'
+            Button:
+                text: 'Sair'
+                background_color: 1,0.7,0,1
+                on_press:
+                    root.sair()
+
+
+<Carrinho>:
+    BoxLayout:
+        Label:
+            text:'Crie o seu carrinho aqui'
+        Button:
+            text: 'Voltar'
+            on_press:
+                root.manager.transition = tela_cai()
+                root.manager.current = 'menu'
+
+
+<Consulta>:
+    BoxLayout:
+        padding: 100,100,100,100
+        orientation: 'vertical'
+        Label:
+            text:'Consulte um produto'
+            font_size: '50sp'
+        GridLayout:
+            cols: 3
+        Label:
+            text: 'Digite algo e clique em OK'
+            font_size: '30sp'
+        TextInput:
+            size_hint: 1,1
+            multiline: False
+        Button:
+            text: 'OK'
+            on_press:
+                root.manager.transition = tela_cai()
+                root.manager.current = 'menu2'
+        Button:
+            text: 'Voltar'
+            on_press:
+                root.manager.transition = tela_slide()
+                root.manager.current = 'menu'
+                root.manager.transition.direction = 'down'
+
+
+<Menu2>:
+    BoxLayout:
+        padding: 100,100,100,100
+        orientation:'vertical'
+        Label:
+            text: 'Classificar por:'
+            font_size: '50sp'
+        GridLayout:
+            cols:3
+        Button:
+            text: 'Valor'
+            on_press:
+                root.manager.transition = tela_slide()
+                root.manager.transition.direction = 'up'
+        Button:
+            text: 'Nome'
+            on_press:
+                root.manager.transition = tela_slide()
+                root.manager.transition.direction = 'up'
+        Button:
+            text: 'Loja'
+            on_press:
+                root.manager.transition = tela_slide()
+                root.manager.transition.direction = 'up'
+        Button:
+            text: 'Voltar'
+            on_press:
+                root.manager.transition = tela_slide()
+                root.manager.current = 'menu'
+                root.manager.transition.direction = 'down'  
+
+
+<Sair>:
+    title:'Carrinho de Compras'
+    size_hint: 0.5,0.5
+    auto_dismiss: False
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: 'Deseja realmente sair? '
+        GridLayout:
+            cols: 2
+            Button:
+                text: 'OK'
+                on_press: root.dismiss()
+            Button:
+                text: 'Cancelar'
+                on_press: root.dismiss()
